@@ -2,6 +2,7 @@ import tkinter as tk
 import subprocess
 
 def main():
+    CHROME_PATH="C:\Program Files\Google\Chrome\Application\chrome.exe"
     SESSION_DURATION_SECONDS = 10
     app = tk.Tk()
 
@@ -38,7 +39,7 @@ def main():
             )
     def start_session():
         subprocess.Popen([
-            r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
+            CHROME_PATH,
             "--new-window",
             "https://www.youtube.com"
         ])
