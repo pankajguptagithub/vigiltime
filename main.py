@@ -1,6 +1,8 @@
 import tkinter as tk
+import subprocess
 
 def main():
+    SESSION_DURATION_SECONDS = 10
     app = tk.Tk()
 
     app.title("VigilTime")
@@ -15,7 +17,7 @@ def main():
 
     timer_label = tk.Label(
         app,
-        text = "00:30",
+        text = f"{SESSION_DURATION_SECONDS // 60:02d}:{SESSION_DURATION_SECONDS %60:02d}",
         font = ("Arial",36,"bold")
     )
     timer_label.pack(pady=20)
@@ -34,12 +36,20 @@ def main():
                 countdown,
                 seconds - 1
             )
+    def start_session():
+        subprocess.Popen([
+            r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
+            "--new-window",
+            "https://www.youtube.com"
+        ])
+
+        countdown(SESSION_DURATION_SECONDS)
 
     start_button = tk.Button(
         app,
-        text="START 30 SECOND TEST",
+        text = f"START SESSION",
         font = ("Arial",14),
-        command = lambda: countdown(30)
+        command = start_session
     )
     start_button.pack(pady=20)
 
