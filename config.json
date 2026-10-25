@@ -1,0 +1,18 @@
+{
+	"app":{
+		"title":"VigilTime",
+		"window_width":500,
+		"window_height":350
+	},
+
+	"browser":{
+		"name":"chrome",
+		"executable_path":"C:/Program Files/Google/Chrome/Application/chrome.exe",
+		"profile_path":"C:/temp/vigiltime_chrome",
+		"start_url":"https://www.youtube.com"
+	},
+
+	"session":{
+		"duration_seconds":30
+	}
+}

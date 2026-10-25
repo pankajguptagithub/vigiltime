@@ -1,13 +1,26 @@
+import json
 import tkinter as tk
 import subprocess
 
+
 def main():
-    CHROME_PATH="C:\Program Files\Google\Chrome\Application\chrome.exe"
-    SESSION_DURATION_SECONDS = 30
+
+    with open("config.json","r") as file:
+        config = json.load(file)
+
+    APP_TITLE = config["app"]["title"]
+    WINDOW_WIDTH = config["app"]["window_width"]
+    WINDOW_HEIGHT = config["app"]["window_height"]
+
+    CHROME_PATH = config["browser"]["executable_path"]
+    PROFILE_PATH = config["browser"]["profile_path"]
+    START_URL = config["browser"]["start_url"]
+
+    SESSION_DURATION_SECONDS = config["session"]["duration_seconds"]
     app = tk.Tk()
 
-    app.title("VigilTime")
-    app.geometry("500x350")
+    app.title(APP_TITLE)
+    app.geometry(f"{WINDOW_WIDTH}x{WINDOW_HEIGHT}")
 
     title = tk.Label(
         app,
@@ -48,9 +61,9 @@ def main():
     def start_session():
         browser_process = subprocess.Popen([
             CHROME_PATH,
-            r"--user-data-dir=C:\temp\vigiltime_chrome"
+            f"--user-data-dir={PROFILE_PATH}",
             "--new-window",
-            "https://www.youtube.com"
+            START_URL
         ])
 
         countdown(SESSION_DURATION_SECONDS,browser_process)
