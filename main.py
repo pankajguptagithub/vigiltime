@@ -3,7 +3,7 @@ import subprocess
 
 def main():
     CHROME_PATH="C:\Program Files\Google\Chrome\Application\chrome.exe"
-    SESSION_DURATION_SECONDS = 10
+    SESSION_DURATION_SECONDS = 30
     app = tk.Tk()
 
     app.title("VigilTime")
@@ -23,7 +23,7 @@ def main():
     )
     timer_label.pack(pady=20)
 
-    def countdown(seconds):
+    def countdown(seconds,browser_process):
         minutes = seconds // 60
         remaining_seconds = seconds%60
 
@@ -35,16 +35,25 @@ def main():
             app.after(
                 1000,
                 countdown,
-                seconds - 1
+                seconds - 1,
+                browser_process
             )
+        else:
+               #browser_process.terminate()
+                subprocess.run(
+                    ["taskkill","/PID",str(browser_process.pid),"/T","/F"],
+                    capture_output=True,
+                    text=True
+                ) 
     def start_session():
-        subprocess.Popen([
+        browser_process = subprocess.Popen([
             CHROME_PATH,
+            r"--user-data-dir=C:\temp\vigiltime_chrome"
             "--new-window",
             "https://www.youtube.com"
         ])
 
-        countdown(SESSION_DURATION_SECONDS)
+        countdown(SESSION_DURATION_SECONDS,browser_process)
 
     start_button = tk.Button(
         app,
