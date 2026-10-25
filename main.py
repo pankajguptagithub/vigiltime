@@ -1,6 +1,16 @@
+import os
+import sys
 import json
 import tkinter as tk
 import subprocess
+
+def get_config_path():
+    if getattr(sys, "frozen",False):
+        base_path = sys._MEIPASS
+    else:
+        base_path = os.path.dirname(os.path.abspath(__file__))
+
+    return os.path.join(base_path, "config.json")
 
 def countdown(app,timer_label,seconds,browser_process):
     minutes = seconds // 60
@@ -57,7 +67,7 @@ def start_session(app,timer_label,config,selected_duration):
 
 def main():
 
-    with open("config.json","r") as file:
+    with open(get_config_path(),"r") as file:
         config = json.load(file)
     
     app = tk.Tk()
