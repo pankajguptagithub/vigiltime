@@ -9,7 +9,7 @@
 		"name":"chrome",
 		"executable_path":"C:/Program Files/Google/Chrome/Application/chrome.exe",
 		"profile_path":"C:/temp/vigiltime_chrome",
-		"start_url":"https://www.youtube.com"
+		"start_url":"https://www.google.co.in"
 	},
 
 	"session":{
